@@ -1,21 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hexap.c                                         :+:      :+:    :+:   */
+/*   ft_pos_conv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aortega- <aortega-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/05 16:10:44 by aortega-          #+#    #+#             */
-/*   Updated: 2019/12/05 17:04:35 by aortega-         ###   ########.fr       */
+/*   Created: 2019/12/17 12:32:06 by aortega-          #+#    #+#             */
+/*   Updated: 2019/12/17 13:03:54 by aortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_hexap(va_list args)
+int	ft_pos_minus(t_flags flags, int len, char *str)
 {
-	char 				*str;
-	int					i;
+	int	rtn;
+
+	rtn = 0;
+	if (flags.minus)
+	{
+		rtn += ft_putstrprint_fd("0x", 1);
+		rtn += ft_putstrprint_fd(str, 1);
+		rtn += ft_adjust(flags.width - (len + 2), ' ');
+	}
+	else if (!flags.minus)
+	{
+		rtn += ft_adjust(flags.width - (len + 2), ' ');
+		rtn += ft_putstrprint_fd("0x", 1);
+		rtn += ft_putstrprint_fd(str, 1);
+	}
+	return (rtn);
+}
+
+int	ft_pos_conv(t_flags flags, va_list args)
+{
+	char				*str;
+	int					len;
+	int					rtn;
 	unsigned long long	nb;
 
 	nb = va_arg(args, unsigned long long);
@@ -23,8 +44,9 @@ int	ft_hexap(va_list args)
 		str = ft_strdup("0");
 	else
 		str = ft_ulltoa_base(nb, "0123456789abcdef");
-	i = 0;
-	i += ft_puthexastr("0x");
-	i += ft_puthexastr(str);
-	return (i);
+	len = ft_strlen(str);
+	rtn = 0;
+	rtn += ft_pos_minus(flags, len, str);
+	free(str);
+	return (rtn);
 }

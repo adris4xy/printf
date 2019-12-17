@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hexax.c                                         :+:      :+:    :+:   */
+/*   char_conv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aortega- <aortega-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/05 17:32:28 by aortega-          #+#    #+#             */
-/*   Updated: 2019/12/09 11:40:50 by aortega-         ###   ########.fr       */
+/*   Created: 2019/12/12 16:21:11 by aortega-          #+#    #+#             */
+/*   Updated: 2019/12/17 15:05:22 by aortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_hexax(va_list args)
+int		ft_char_conv(t_flags flags, va_list args)
 {
-	char 				*str;
-	int					i;
-	unsigned long long	nb;
-
-	nb = va_arg(args, unsigned long long);
-	if (!nb)
-		str = ft_strdup("0");
-	else
-		str = ft_itoa_base(nb, "0123456789abcdef");
-	i = 0;
-	i += ft_puthexastr(str);
-	return (i);
+	if (flags.minus && flags.width > 1)
+	{
+		ft_putchar_fd(va_arg(args, int), 1);
+		ft_adjust(flags.width - 1, ' ');
+		return (flags.width);
+	}
+	else if (!flags.minus && flags.width > 1)
+		ft_adjust(flags.width - 1, ' ');
+	ft_putchar_fd(va_arg(args, int), 1);
+	if (flags.width > 1)
+		return (flags.width);
+	return (1);
 }

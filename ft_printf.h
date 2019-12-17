@@ -6,7 +6,7 @@
 /*   By: aortega- <aortega-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:35:58 by aortega-          #+#    #+#             */
-/*   Updated: 2019/12/09 15:46:02 by aortega-         ###   ########.fr       */
+/*   Updated: 2019/12/17 15:08:31 by aortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,43 @@
 # include <unistd.h>
 # include "./libft/libft.h"
 
-typedef struct s_vprint
+typedef struct		s_flags
 {
-	int		len;
-	char	*str;
-	char	c;
-	va_list	args;
-}				t_vprint;
+	int	minus;
+	int	zero;
+	int	width;
+	int	point;
+	int	precision;
+}					t_flags;
 
-int		ft_printf(const char *s, ...);
-int		ft_specialputchar(char *str);
-
-int		ft_checktype(t_vprint *a);
-
-int		ft_putstrcount(va_list args);
-
-int		ft_putcharcount(va_list args);
-
-int		ft_putnumber(va_list args);
-
-int		ft_hexap(va_list args);
-char	*ft_ulltoa_base(unsigned long long nbr, char *base);
-int		ft_puthexastr(char *s);
-
-int		ft_hexax(va_list args);
-int		ft_hexaxbig(va_list args);
-char	*ft_itoa_base(unsigned int nbr, char *base);
-
-int		ft_unsignedcount(va_list args);
-char	*ft_utoa(unsigned int n);
-
-int		ft_percentcount(char c);
+int					ft_printf(const char *input, ...);
+t_flags				ft_init_flags(t_flags flags);
+int					ft_is_flag(char c);
+t_flags				ft_treat_flags(char input, t_flags flags, va_list args);
+t_flags				ft_parser_flags(const char *input, t_flags flags,
+					va_list args);
+int					ft_parser_conv(char input, t_flags flags, va_list args);
+int					ft_adjust(int width, char c);
+int					ft_char_conv(t_flags flags, va_list args);
+int					ft_str_conv(t_flags flags, va_list args);
+int					ft_str_precision(char *str, int len, int precision,
+					int mod);
+int					ft_int_conv(t_flags flags, va_list args);
+int					ft_int_minus(t_flags flags, int len, char *str, int nb);
+int					ft_int_precision(t_flags flags, int len, int nb);
+int					ft_int_adjust(t_flags flags, int len, int nb);
+int					ft_putstrprint_fd(char *str, int fd);
+int					ft_pos_conv(t_flags flags, va_list args);
+int					ft_pos_minus(t_flags flags, int len, char *str);
+char				*ft_ulltoa_base(unsigned long long nbr, char *base);
+int					ft_hexa_conv(t_flags flags, va_list args, char *str);
+int					ft_hexa_minus(t_flags flags, int len, char *str);
+int					ft_hexa_precision(int precision, int len);
+int					ft_hexa_adjust(t_flags flags, int len);
+int					ft_unsign_conv(t_flags flags, va_list args);
+int					ft_unsign_minus(t_flags flags, int len, char *str);
+int					ft_unsign_precision(int precision, int len);
+int					ft_unsign_adjust(t_flags flags, int len);
+int					ft_percent_conv(t_flags flags);
+char				*ft_utoa(unsigned int n);
 #endif

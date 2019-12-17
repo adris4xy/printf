@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltoabase.c                                    :+:      :+:    :+:   */
+/*   ft_ulltoa_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aortega- <aortega-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/05 16:28:27 by aortega-          #+#    #+#             */
-/*   Updated: 2019/12/05 16:33:11 by aortega-         ###   ########.fr       */
+/*   Created: 2019/12/17 12:32:22 by aortega-          #+#    #+#             */
+/*   Updated: 2019/12/17 12:32:50 by aortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ullnum_length(unsigned long long n, int b)
 	return (i);
 }
 
-static int			put_ullnbr(unsigned long long nb, char *base, char *str, int l)
+int			put_ullnbr(unsigned long long nb, char *base, char *str, int l)
 {
 	int	b;
 

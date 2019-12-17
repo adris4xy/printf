@@ -5,31 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aortega- <aortega-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/02 17:19:28 by aortega-          #+#    #+#             */
-/*   Updated: 2019/12/09 15:26:25 by aortega-         ###   ########.fr       */
+/*   Created: 2019/12/11 12:50:13 by aortega-          #+#    #+#             */
+/*   Updated: 2019/12/17 15:29:49 by aortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *s, ...)
+int		ft_special_putchar(char c)
 {
-	t_vprint	a;
+	int rtn;
 
-	a.len = 0;
-	a.str = (char *)s;
-	va_start(a.args, s);
-	while (*a.str)
+	rtn = 0;
+	if (c != '%')
 	{
-		if (*a.str == '%' && (*a.str + 1))
-		{
-			++a.str;
-			a.len += ft_checktype(&a);
-		}
-		else
-			a.len += ft_specialputchar(a.str);
-		++a.str;
+		write(1, &c, 1);
+		rtn++;
 	}
-	va_end(a.args);
-	return (a.len);
+	return (rtn);
+}
+
+int		ft_printf(const char *input, ...)
+{
+	va_list args;
+	t_flags flags;
+	int		rtn;
+	int		i;
+
+	i = 0;
+	rtn = 0;
+	va_start(args, input);
+	while (input[i])
+	{
+		rtn += ft_special_putchar(input[i]);
+		if (input[i] == '%' && input[i + 1])
+		{
+			i++;
+			flags = ft_init_flags(flags);
+			flags = ft_parser_flags(&input[i], flags, args);
+			while (ft_is_flag(input[i]))
+				i++;
+			rtn += ft_parser_conv(input[i], flags, args);
+		}
+		i++;
+	}
+	va_end(args);
+	return (rtn);
 }

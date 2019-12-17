@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstrprint_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aortega- <aortega-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 14:32:08 by aortega-          #+#    #+#             */
-/*   Updated: 2019/12/09 14:08:25 by aortega-         ###   ########.fr       */
+/*   Created: 2019/12/16 15:44:22 by aortega-          #+#    #+#             */
+/*   Updated: 2019/12/16 17:11:34 by aortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int main()
+int	ft_putstrprint_fd(char *str, int fd)
 {
-	char	a[] = "hola";
-	int		b;
-	int		j;
-	int		c = -29;
-	int		*ptr = &c;
-	b = ft_printf("perra %%\n");
-	printf("El numero de caracteres es %d\n", b);
+	int i;
 
-	j = printf("perra %%\n");
-	printf("El numero de caracteres es %d\n", j);
-	return (0);
+	i = 0;
+	if (!str)
+		return (i);
+	while (str[i])
+		write(fd, &str[i++], 1);
+	return (i);
 }

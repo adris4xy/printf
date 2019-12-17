@@ -6,7 +6,7 @@
 #    By: aortega- <aortega-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/04 11:35:44 by aortega-          #+#    #+#              #
-#    Updated: 2019/12/09 14:05:36 by aortega-         ###   ########.fr        #
+#    Updated: 2019/12/17 16:03:15 by aortega-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = libftprintf.a
 
 FLAGS = -Wall -Wextra -Werror -c
 
-SRCS =	ft_printf.c ft_specialputchar.c ft_putstrcount.c ft_checktype.c ft_putnumber.c ft_hexap.c ft_ulltoabase.c ft_puthexastr.c ft_itoa_base.c ft_hexax.c	ft_hexaxbig.c ft_putcharcount.c ft_unsignedcount.c ft_utoa.c ft_percentcount.c main.c
+SRCS = ft_printf.c flags_utils.c conv_utils.c char_conv.c str_conv.c int_conv.c ft_putstrprint_fd.c pos_conv.c ft_ulltoa_base.c hexa_conv.c percent_conv.c unsign_conv.c ft_utoa.c
 
 OBJS = $(SRCS:.c=.o)
 
